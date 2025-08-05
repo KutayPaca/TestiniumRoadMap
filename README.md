@@ -42,7 +42,7 @@ class CollectionDemo {
         System.out.println(h.get(1));       // geeks
     }
 }
-java'''
+```
 
 - **Array:** Sabit uzunluklu bir dizi, hızlı erişim sağlar.  
 - **Vector:** Dinamik büyüyen, ancak **synchronized** (thread-safe) bir dizi yapısıdır.  
