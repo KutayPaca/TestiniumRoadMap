@@ -20,6 +20,8 @@ Java’da nesneleri gruplamak için önceleri **Array (dizi)**, **Vector** ve **
 
 ---
 ## 2. Eski Koleksiyon Örneği
+
+```java
 import java.util.*;
 
 class CollectionDemo {
