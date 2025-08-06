@@ -95,6 +95,36 @@ JDK 1.2 ile birlikte **Java Collection Framework** tanıtıldı. Bu framework, y
 
 ---
 
+## 7. Map Nedir?
+
+Java'da **Map**, anahtar-değer çiftlerini saklayan bir veri yapısıdır. Anahtarlar benzersizdir ve her anahtar bir değere karşılık gelir.
+
+### Avantajları
+- Hızlı veri erişimi sağlar.
+- Anahtar-değer ilişkisini gerçek dünyaya uygun şekilde modeller.
+- Farklı türde anahtar ve değer kullanılabilir.
+
+### Dezavantajları
+- Bellek kullanımı yüksektir.
+- Hash çakışmaları performansı etkileyebilir.
+- Bazı implementasyonlar sıralama garantisi vermez.
+- Thread-safe değildir, çoklu iş parçacığında sorun çıkabilir.
+
+---
+
+## Map Veri Tipinin Türü ve Diğerlerine Göre Farkı
+
+Java'da Map, `Collection` arayüzünün bir parçası değildir.  
+Map, anahtar-değer çiftlerini tutan ayrı bir arayüzdür (`java.util.Map`).  
+
+- List, Set ve Queue gibi yapılar sıralı veya sırasız tek bir veri kümesi tutarken,  
+- Map, her anahtara karşılık gelen bir değer saklar ve anahtarlar benzersizdir.  
+- Dolayısıyla Map, indeksleme veya sıralama değil, anahtarla erişim mantığına dayalıdır.
+
+Bu yönüyle Map, diğer veri yapılarından farklı bir tür data type olarak kabul edilir.
+
+---
+
 ## 7. Kısa Özet
 
 | Yapı           | Özellik                                      | Kullanım Alanı                                                          |
@@ -103,5 +133,10 @@ JDK 1.2 ile birlikte **Java Collection Framework** tanıtıldı. Bu framework, y
 | **ArrayList**  | Dinamik, hızlı erişim, sıralı, tekrar eleman | Tek iş parçacıklı veya thread-safe olmayan durumlar için                |
 | **LinkedList** | Dinamik, hızlı ekleme/silme, yavaş erişim    | Çok ekleme/silme olan durumlar                                          |
 | **Vector**     | Dinamik, synchronized (thread-safe)          | Çoklu thread ortamlarında, ancak günümüzde alternatifleri tercih edilir |
+| **Map**        | Anahtar-değer çiftleri, hızlı erişim         | Benzersiz anahtar-değer ilişkisi gereken durumlar; örn. veri tabanı önbelleği, konfigürasyon verileri |
 
 ---
+
+
+
+
