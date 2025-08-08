@@ -6,7 +6,7 @@ Math Sınıfı (java.lang.Math)
 Sabitler ve basit metodlar
 --------------------------
 
-java```
+```java
 
 `System.out.println(Math.PI);   // 3.141592653589793
 System.out.println(Math.E);    // 2.718281828459045
@@ -19,15 +19,15 @@ System.out.println(Math.min(3,7)); // 3`
 Yuvarlama: floor / ceil / round
 -------------------------------
 
-java
-
-KopyalaDüzenle
+```java
 
 `System.out.println(Math.floor(3.9));   // 3.0  (double)
 System.out.println(Math.ceil(3.1));    // 4.0  (double)
 System.out.println(Math.round(3.5));   // 4    (long)  // Math.round(double) -> long
 System.out.println(Math.round(3.5f));  // 4    (int)   // Math.round(float) -> int
 System.out.println(Math.round(-1.5));  // -1   (dikkat negatiflerde davranış)`
+
+```
 
 **Dikkat:** `round(double)` → `long`, `round(float)` → `int`. Negatif sayılarda `round` davranışı `floor(x+0.5)` mantığına göre.
 
@@ -36,28 +36,28 @@ System.out.println(Math.round(-1.5));  // -1   (dikkat negatiflerde davranış)`
 Üs, kök, hypot
 --------------
 
-java
-
-KopyalaDüzenle
+java```
 
 `System.out.println(Math.pow(2,10));   // 1024.0
 System.out.println(Math.sqrt(2));     // 1.4142135...
 System.out.println(Math.hypot(3,4));  // 5.0  (daha güvenli: overflow/underflow riski azaltılır)`
 
-`Math.hypot` -> güvenli hipotenüs hesaplama (ara karelerin overflow riskini azaltır).
+``
+
+Math.hypot` -> güvenli hipotenüs hesaplama (ara karelerin overflow riskini azaltır).
 
 * * * * *
 
 Trig (radyan unutma!)
 ---------------------
 
-java
-
-KopyalaDüzenle
+```java
 
 `double deg = 30;
 double rad = Math.toRadians(deg);
 System.out.println(Math.sin(rad));  // ~0.5 (küçük floating hata olabilir)`
+
+````
 
 **Tuzak:** trig fonksiyonları radyan ister; `Math.toRadians()` kullan.
 
@@ -68,35 +68,36 @@ Math.random() --- range oluşturma
 
 `Math.random()` -> `double` [0.0, 1.0)
 
-java
+```java
 
-KopyalaDüzenle
 
 `// rastgele int [min, max] inclusive
 int min = 5, max = 10;
 int r = min + (int)(Math.random() * (max - min + 1));`
 
+```
+
 **NOT:** Bu yeterli ve basit, ama üretim kodunda `ThreadLocalRandom.current().nextInt(min, max + 1)` kullansan daha iyi (performans ve kalite).\
 Örnek:
 
-java
-
-KopyalaDüzenle
+```java
 
 `int r2 = java.util.concurrent.ThreadLocalRandom.current().nextInt(min, max + 1);`
+
+```
 
 * * * * *
 
 NaN, Infinity, overflow
 -----------------------
 
-java
-
-KopyalaDüzenle
+```java
 
 `System.out.println(Math.sqrt(-1));           // NaN
 System.out.println(Math.log(0));             // -Infinity
 System.out.println(Math.pow(10, 400));       // Infinity (overflow)`
+
+```
 
 Her zaman sonuçları kontrol et (isFinite/isNaN) özellikle kullanıcı girdileri ya da büyük üslerde.
 
