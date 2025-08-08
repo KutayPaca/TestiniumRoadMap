@@ -136,7 +136,241 @@ Bu yönüyle Map, diğer veri yapılarından farklı bir tür data type olarak k
 | **Map**        | Anahtar-değer çiftleri, hızlı erişim         | Benzersiz anahtar-değer ilişkisi gereken durumlar; örn. veri tabanı önbelleği, konfigürasyon verileri |
 
 ---
+# Java String Sınıfı (java.lang.String)
 
+**Kısa Özet:**  
+`String` immutable’dır (değiştirilemez). Bir String üzerinde değişiklik yaptığında aslında yeni bir String oluşur, orijinali aynı kalır. Bu yüzden çok sayıda değişiklik gerektiğinde **`StringBuilder`** kullanmak daha performanslıdır.
+
+---
+
+## 1. Temel Metodlar
+
+```java
+public class StringExamples {
+    public static void main(String[] args) {
+        String s = "  Hello.World  ";
+        System.out.println("original: '" + s + "'");                 // '  Hello.World  '
+        System.out.println("length: " + s.length());                 // 14 (boşluklar dahil)
+        System.out.println("charAt(2): " + s.charAt(2));             // 'H'
+        System.out.println("substring(2,7): '" + s.substring(2,7) + "'"); // "Hello"
+        System.out.println("trim(): '" + s.trim() + "'");            // "Hello.World"
+        System.out.println("toUpperCase(): " + s.toUpperCase());     // "  HELLO.WORLD  "
+    }
+}
+```
+
+> **Not:** `substring(begin, end)` → `end` **exclusive**. Index hatası için `IndexOutOfBoundsException` oluşur.
+
+---
+
+## 2. Arama ve Karşılaştırma
+
+```java
+String t = "abracadabra";
+System.out.println(t.indexOf("bra"));      // 1
+System.out.println(t.lastIndexOf("bra"));  // 8
+System.out.println(t.indexOf('z'));        // -1
+System.out.println(t.contains("cada"));    // true
+System.out.println(t.startsWith("abra"));  // true
+System.out.println(t.endsWith("bra"));     // true
+```
+
+---
+
+## 3. equals vs ==
+
+```java
+String a = "abc";
+String b = "abc";
+String c = new String("abc");
+System.out.println(a == b);       // true (string pool)
+System.out.println(a == c);       // false (farklı nesne)
+System.out.println(a.equals(c));  // true (içerik karşılaştırması)
+```
+
+> **Kural:** `==` referans karşılaştırır, içerik karşılaştırmak için `equals()` kullan.
+
+---
+
+## 4. replace, replaceAll, replaceFirst
+
+```java
+String s2 = "1.2.3";
+System.out.println(s2.replace(".", "!"));         // "1!2!3"  -> literal
+System.out.println(s2.replaceAll("\\.", "!"));    // "1!2!3"  -> regex (nokta escape edildi)
+System.out.println("abc".replaceAll(".", "!"));   // "!!!" -> "." regex'te tüm karakterler demek
+```
+
+> **Not:** `replaceAll` regex kullanır. Literal string için `replace()` kullanmak daha güvenlidir.
+
+---
+
+## 5. split() ve limit parametresi
+
+```java
+String csv = "a,b,,c,";
+String[] partsDefault = csv.split(",");     // Son boş stringleri atar
+String[] partsKeep = csv.split(",", -1);    // Boş stringleri korur
+```
+
+> **Not:** `split` parametresi regex'tir. Nokta ile ayırmak için `split("\\.")` kullan.
+
+---
+
+## 6. isEmpty() vs isBlank() (Java 11+)
+
+```java
+String empty = "";
+String spaces = "   ";
+System.out.println(empty.isEmpty());   // true
+System.out.println(spaces.isEmpty());  // false
+System.out.println(spaces.isBlank());  // true (sadece whitespace ise)
+```
+
+---
+
+## 7. StringBuilder Kullanımı (Performans)
+
+```java
+// Kötü yöntem (yavaş)
+String bad = "";
+for (int i = 0; i < 10000; i++) {
+    bad += i + ",";
+}
+
+// İyi yöntem
+StringBuilder sb = new StringBuilder();
+for (int i = 0; i < 10000; i++) {
+    sb.append(i).append(',');
+}
+String good = sb.toString();
+```
+
+> **Not:** `StringBuffer` thread-safe versiyondur ama yavaştır, çoğu durumda `StringBuilder` tercih edilir.
+
+---
+
+## 8. Regex ile Kullanım İpuçları
+
+- `replaceAll` ve `split` regex kullanır.  
+- Literal stringler için `Pattern.quote(literal)` veya `replace()` kullanmak güvenlidir.  
+- `matches()` tüm stringi kontrol eder (başlangıçtan sona).
+
+---
+
+Math Sınıfı (java.lang.Math)
+============================
+
+**Kısa özet:** Tüm metodlar `static`. Hesaplar, trig, yuvarlama, rastgele (sınırlı) vs. `Math.random()` basit kullanım için, ama daha kontrollü rasgele için `Random` / `ThreadLocalRandom` kullan.
+
+Sabitler ve basit metodlar
+--------------------------
+
+```java
+
+`System.out.println(Math.PI);   // 3.141592653589793
+System.out.println(Math.E);    // 2.718281828459045
+System.out.println(Math.abs(-5));  // 5
+System.out.println(Math.max(3,7)); // 7
+System.out.println(Math.min(3,7)); // 3`
+
+```
+
+Yuvarlama: floor / ceil / round
+-------------------------------
+
+```java
+
+`System.out.println(Math.floor(3.9));   // 3.0  (double)
+System.out.println(Math.ceil(3.1));    // 4.0  (double)
+System.out.println(Math.round(3.5));   // 4    (long)  // Math.round(double) -> long
+System.out.println(Math.round(3.5f));  // 4    (int)   // Math.round(float) -> int
+System.out.println(Math.round(-1.5));  // -1   (dikkat negatiflerde davranış)`
+
+```
+
+**Dikkat:** `round(double)` → `long`, `round(float)` → `int`. Negatif sayılarda `round` davranışı `floor(x+0.5)` mantığına göre.
+
+* * * * *
+
+Üs, kök, hypot
+--------------
+
+```java
+
+`System.out.println(Math.pow(2,10));   // 1024.0
+System.out.println(Math.sqrt(2));     // 1.4142135...
+System.out.println(Math.hypot(3,4));  // 5.0  (daha güvenli: overflow/underflow riski azaltılır)`
+
+```
+
+Math.hypot` -> güvenli hipotenüs hesaplama (ara karelerin overflow riskini azaltır).
+
+* * * * *
+
+Trig
+---------------------
+
+```java
+
+`double deg = 30;
+double rad = Math.toRadians(deg);
+System.out.println(Math.sin(rad));  // ~0.5 (küçük floating hata olabilir)`
+
+````
+
+**Tuzak:** trig fonksiyonları radyan ister; `Math.toRadians()` kullan.
+
+* * * * *
+
+Math.random() --- range oluşturma
+-------------------------------
+
+`Math.random()` -> `double` [0.0, 1.0)
+
+```java
+
+
+`// rastgele int [min, max] inclusive
+int min = 5, max = 10;
+int r = min + (int)(Math.random() * (max - min + 1));`
+
+```
+
+**NOT:** Bu yeterli ve basit, ama üretim kodunda `ThreadLocalRandom.current().nextInt(min, max + 1)` kullansan daha iyi (performans ve kalite).\
+Örnek:
+
+```java
+
+`int r2 = java.util.concurrent.ThreadLocalRandom.current().nextInt(min, max + 1);`
+
+```
+
+* * * * *
+
+NaN, Infinity, overflow
+-----------------------
+
+```java
+
+`System.out.println(Math.sqrt(-1));           // NaN
+System.out.println(Math.log(0));             // -Infinity
+System.out.println(Math.pow(10, 400));       // Infinity (overflow)`
+
+```
+
+Her zaman sonuçları kontrol et (isFinite/isNaN) özellikle kullanıcı girdileri ya da büyük üslerde.
+
+* * * * *
+
+Kullanım tavsiyeleri / tuzaklar
+-------------------------------
+
+-   **Kesin yuvarlama (para vb.)** gerekiyorsa `BigDecimal` kullan; `double` hata verebilir.
+
+-   Büyük üslerle çalışırken `Math.pow` -> çabuk `Infinity` olabilir. `Math.scalb`, `BigDecimal` veya mantıksal teknikler düşün.
+
+-   Rastgele sayı üretiminde `Math.random()` paralel uygulamalarda yetersiz; `ThreadLocalRandom` veya `SecureRandom` (kripto) kullan.
 
 
 
