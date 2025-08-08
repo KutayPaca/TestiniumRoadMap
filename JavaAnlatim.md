@@ -372,5 +372,119 @@ Kullanım tavsiyeleri / tuzaklar
 
 -   Rastgele sayı üretiminde `Math.random()` paralel uygulamalarda yetersiz; `ThreadLocalRandom` veya `SecureRandom` (kripto) kullan.
 
+Java Class ve Constructor Yapıları
+==================================
+
+* * * * *
+
+1\. Class Nedir?
+----------------
+
+-   Java'da **class**, nesne tabanlı programlamanın temel taşıdır.
+
+-   İçinde **field** (değişken), **method** (fonksiyon), **constructor** (yapıcı metod) barındırır.
+
+-   Class bir şablon (template), nesnelerin (objects) blueprint'idir.
+
+-   Java'da her şey class içinde olur.
+
+-   Class'lar dosya isimleriyle aynı olmak zorunda değildir ama **public class**'lar için dosya adı ile class adı aynı olmalı.
+
+### Basit Class Örneği
+
+```java
+
+
+`public class Araba {
+    // field
+    String renk;
+    int hiz;
+
+    // method
+    void hizlan() {
+        hiz += 10;
+    }
+}`
+
+```
+
+* * * * *
+
+2\. Constructor Nedir?
+----------------------
+
+-   Constructor, class'tan nesne yaratılırken (instantiate) otomatik çalışan özel bir metottur.
+
+-   Nesneyi ilk haline (initialize) getirmek için kullanılır.
+
+-   Constructor adı **class ismi ile aynıdır** ve dönüş tipi **yoktur** (void bile yazılmaz).
+
+-   Eğer sen constructor yazmazsan, Java sana **parametresiz default constructor** verir.
+
+-   Bir class'da **birden fazla constructor (constructor overloading)** olabilir.
+
+* * * * *
+
+3\. Constructor Örnekleri
+-------------------------
+
+```java
+
+`public class Araba {
+    String renk;
+    int hiz;
+
+    // Parametresiz constructor (default)
+    public Araba() {
+        renk = "Beyaz";
+        hiz = 0;
+    }
+
+    // Parametreli constructor
+    public Araba(String renk, int hiz) {
+        this.renk = renk;   // this. ile field'ı belirtiriz
+        this.hiz = hiz;
+    }
+
+    void hizlan() {
+        hiz += 10;
+    }
+}`
+
+```
+
+* * * * *
+
+4\. Constructor Kullanımı
+-------------------------
+
+```java
+
+
+`public class Main {
+    public static void main(String[] args) {
+        Araba araba1 = new Araba();                  // Parametresiz constructor çağrıldı
+        Araba araba2 = new Araba("Kırmızı", 50);    // Parametreli constructor çağrıldı
+
+        System.out.println(araba1.renk); // Beyaz
+        System.out.println(araba2.renk); // Kırmızı
+
+        araba2.hizlan();
+        System.out.println(araba2.hiz);  // 60
+    }
+}`
+
+```
+
+* * * * *
+
+5\. Ekstra Notlar
+-----------------
+
+-   Constructor içinde başka constructor çağırmak için `this()` kullanılır.
+
+-   Eğer constructor içinde `this()` varsa, o çağrı **ilk satırda** olmalı.
+
+-   **static** keyword'ü constructor'da kullanılamaz.
 
 
