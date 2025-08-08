@@ -487,4 +487,154 @@ Java Class ve Constructor Yapıları
 
 -   **static** keyword'ü constructor'da kullanılamaz.
 
+Java'da static ve final Keyword'leri
+====================================
 
+* * * * *
+
+1\. `static` Nedir?
+-------------------
+
+-   `static` olan bir şey **class seviyesindedir**, nesneye değil.
+
+-   Yani o değişken veya metod, **tüm nesneler için ortak**dır, tek bir kopyası olur.
+
+-   Nesne oluşturmadan da **class adıyla erişilebilir** (`ClassName.staticMember`).
+
+-   Genellikle yardımcı (utility) metotlar ve ortak veriler için kullanılır.
+
+### Örnek:
+
+```java
+
+KopyalaDüzenle
+
+`public class Sayac {
+    public static int sayi = 0;
+
+    public Sayac() {
+        sayi++;   // Her nesne oluşturulunca sayi artar
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        new Sayac();
+        new Sayac();
+        System.out.println(Sayac.sayi);  // 2 (Nesne sayısı)
+    }
+}`
+
+```
+
+* * * * *
+
+2\. `final` Nedir?
+------------------
+
+-   `final` ile işaretlenen değişken veya metod ya da sınıf **değiştirilemez/override edilemez**.
+
+-   Bir kere değer atanır, sonra değiştirilemez.
+
+-   `final` değişkenler **sabit (constant)** gibi kullanılır.
+
+-   `final` metodlar **alt sınıflarda override edilemez**.
+
+-   `final` sınıf **extend edilemez** (miras alınamaz).
+
+### Örnek:
+
+```java
+
+`public class Sabitler {
+    public static final double PI = 3.14159;
+}`
+
+```
+
+```java
+
+`public final class SonSinif {
+    // Bu sınıf miras alınamaz
+}`
+
+```
+
+```java
+
+`public class UstSinif {
+    public final void metod() {
+        System.out.println("Değiştirilemez metod");
+    }
+}
+
+public class AltSinif extends UstSinif {
+    // public void metod() { }  // Hata! override edilemez
+}`
+
+```
+
+* * * * *
+
+3\. `static final` Birlikte
+---------------------------
+
+-   Genellikle sabitleri tanımlamak için kullanılır.
+
+-   `public static final` değişkenler **SABİT** olarak kabul edilir, isimleri genelde **büyük harf** ve `_` ile yazılır.
+
+### Örnek:
+
+```java
+
+KopyalaDüzenle
+
+`public class Fizik {
+    public static final double IYI_HIZ = 299792458; // m/s (ışık hızı)
+}`
+
+```
+
+* * * * *
+
+4\. Dikkat Edilmesi Gerekenler
+------------------------------
+
+-   `static` metodlar **instance (nesne) değişkenlerine doğrudan erişemez** çünkü nesneye bağlı değildirler.
+
+-   `final` değişken mutlaka **ilk atamada veya constructor'da bir kere atanmalıdır**.
+
+-   `final` nesne referansı değiştirilemez ama nesnenin içi değiştirilebilir (örnek: `final List`).
+
+* * * * *
+
+5\. Örnek Program
+-----------------
+
+```java
+
+
+`public class Test {
+    public static final double PI = 3.14;
+    public static int sayac = 0;
+
+    public Test() {
+        sayac++;
+    }
+
+    public static void yazdir() {
+        System.out.println("Sayaç: " + sayac);
+        // System.out.println(PI);  // Evet erişilebilir
+    }
+
+    public static void main(String[] args) {
+        Test t1 = new Test();
+        Test t2 = new Test();
+
+        Test.yazdir();   // Sayaç: 2
+
+        // PI = 3.1415;  // Hata! final olduğu için değiştirilemez
+    }
+}`
+
+```
