@@ -48,7 +48,7 @@ Math.hypot` -> güvenli hipotenüs hesaplama (ara karelerin overflow riskini aza
 
 * * * * *
 
-Trig (radyan unutma!)
+Trig
 ---------------------
 
 ```java
