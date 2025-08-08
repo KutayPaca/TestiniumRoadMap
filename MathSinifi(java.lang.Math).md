@@ -36,13 +36,13 @@ System.out.println(Math.round(-1.5));  // -1   (dikkat negatiflerde davranış)`
 Üs, kök, hypot
 --------------
 
-java```
+```java
 
 `System.out.println(Math.pow(2,10));   // 1024.0
 System.out.println(Math.sqrt(2));     // 1.4142135...
 System.out.println(Math.hypot(3,4));  // 5.0  (daha güvenli: overflow/underflow riski azaltılır)`
 
-``
+```
 
 Math.hypot` -> güvenli hipotenüs hesaplama (ara karelerin overflow riskini azaltır).
 
