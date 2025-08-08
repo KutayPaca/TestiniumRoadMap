@@ -6,9 +6,7 @@ Math Sınıfı (java.lang.Math)
 Sabitler ve basit metodlar
 --------------------------
 
-java
-
-KopyalaDüzenle
+java```
 
 `System.out.println(Math.PI);   // 3.141592653589793
 System.out.println(Math.E);    // 2.718281828459045
@@ -16,7 +14,7 @@ System.out.println(Math.abs(-5));  // 5
 System.out.println(Math.max(3,7)); // 7
 System.out.println(Math.min(3,7)); // 3`
 
-* * * * *
+```
 
 Yuvarlama: floor / ceil / round
 -------------------------------
