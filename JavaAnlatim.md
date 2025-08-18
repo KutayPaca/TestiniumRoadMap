@@ -803,3 +803,95 @@ public class Main {
 
 - **Overload** → Aynı sınıfta olur; metot ismi aynı ama parametre listesi farklıdır, **compile-time polimorfizmi** sağlar.  
 - **Override** → Inheritance ile olur; metot imzası tamamen aynı kalır, alt sınıf üst sınıfın metodunu yeniden yazar ve **runtime polimorfizmi** sağlar.  
+
+# Java Döngüleri ve Koleksiyon Traversal Yöntemleri – Detaylı Farklar
+
+Java’da koleksiyonları dolaşmanın (traversal) 4 temel yöntemi vardır:  
+**1. for döngüsü** – klasik  
+**2. foreach (enhanced for)** – kolay ve okunabilir  
+**3. Iterator** – güvenli silme/düzenleme  
+**4. Stream API** – modern ve fonksiyonel
+
+---
+
+## 1️. For Döngüsü (Classic For)
+
+- **Temel mantık:** İndeks üzerinden dönmek.
+- **Koleksiyon türleri:** Array ve List (özellikle ArrayList).
+- **Avantajlar:**
+  - Index kontrolü sayesinde elemanlara kolay erişim.
+  - Hem List hem array’de çalışır.
+  - Karmaşık mantıklar, ters döngüler, adım atmalar için esnek.
+- **Dezavantajlar:**
+  - LinkedList gibi indeksli erişimin O(n) olduğu yapılar için performans kötü.
+  - Koleksiyon silme işlemleri için riskli (`ConcurrentModificationException` olabilir).
+  - Kod daha uzun, okunabilirlik düşük.
+- **Performans:**
+  - ArrayList için hızlıdır (`get(i)` O(1)).
+  - LinkedList için yavaş (`get(i)` O(n)).
+
+---
+
+## 2. Foreach (Enhanced For Loop)
+
+- **Temel mantık:** Koleksiyon üzerinde “iterator” mekanizmasını kullanarak döner.
+- **Koleksiyon türleri:** Array, List, Set… her Iterable.
+- **Avantajlar:**
+  - Kod kısa ve temiz, okunabilirlik yüksek.
+  - Hata yapma riski düşük (indeks kullanmana gerek yok).
+- **Dezavantajlar:**
+  - Index bilgisi yok.
+  - Döngü sırasında güvenli silme mümkün değil (`remove()` yok).
+- **Performans:**
+  - Listlerde performans for döngüsü ile hemen hemen aynı.
+  - Kod okunabilirliği yüksek → bakım kolaylığı sağlar.
+
+---
+
+## 3️. Iterator
+
+- **Temel mantık:** Koleksiyonları dolaşmak için özel bir nesne (Iterator) kullanılır.
+- **Koleksiyon türleri:** Iterable olan her şey (List, Set, Map üzerinden entrySet).
+- **Avantajlar:**
+  - Döngü sırasında güvenli silme (`remove()`) yapılabilir.
+  - `while` ile kontrollü dolaşım, şartlı silme vs. kolay.
+- **Dezavantajlar:**
+  - Kod daha uzun, “boilerplate” var.
+  - Foreach veya stream kadar okunabilir değil.
+- **Performans:**
+  - ArrayList ve LinkedList için dengeli.
+  - LinkedList için özellikle silme işlemlerinde for döngüsünden daha hızlı.
+
+---
+
+## 4️. Stream API
+
+- **Temel mantık:** Koleksiyona “ne yapmak istediğini” söyle, “nasıl yapılacağını” Java halleder (fonksiyonel yaklaşım).
+- **Koleksiyon türleri:** List, Set, Map (entrySet), array…
+- **Avantajlar:**
+  - Fonksiyonel, deklaratif ve modern.
+  - `map`, `filter`, `reduce`, `collect` gibi güçlü işlemler.
+  - Paralel işlem için kolay (`parallelStream()`).
+- **Dezavantajlar:**
+  - Küçük ve basit işlemlerde aşırı ağır olabilir.
+  - Debug ve hata bulma daha zor.
+  - Döngü içinde eleman silme yok, immutable yaklaşım tercih edilir.
+- **Performans:**
+  - Büyük veri ve paralel işlemlerde çok avantajlı.
+  - Küçük listelerde klasik döngü daha hızlı olabilir.
+
+---
+
+## Detaylı Fark Tablosu
+
+| Özellik | for | foreach | Iterator | Stream |
+| --- | --- | --- | --- | --- |
+| **Index ile erişim** | Var | Yok | Yok | Yok |
+| **Eleman silme** | Riskli | Hayır | Var (`remove()`) | Hayır |
+| **Koleksiyon türü** | Array, List | Iterable her şey | Iterable her şey | Iterable her şey |
+| **Kod okunabilirlik** | Orta | Yüksek | Orta | Çok yüksek |
+| **Fonksiyonel programlama** | Hayır | Hayır | Hayır | Evet |
+| **Paralel kullanım** | Hayır | Hayır | Hayır | Evet |
+| **Performans** | ArrayList hızlı, LinkedList yavaş | Benzer for döngüsü | LinkedList silmede avantaj | Büyük veri, paralel avantajlı |
+| **Kısa ve temiz kod** | Hayır | Evet | Hayır | Evet |
+
