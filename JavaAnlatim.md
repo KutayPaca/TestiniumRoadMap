@@ -638,3 +638,168 @@ KopyalaDüzenle
 }`
 
 ```
+# Object Oriented Programming (OOP) Temelleri
+
+Bu dokümanda OOP’nin dört temel prensibi (Encapsulation, Inheritance, Polymorphism, Abstraction) ve bunların kullanım amaçları özetlenmiştir.
+
+---
+
+## Encapsulation (Kapsülleme) Neden Kullanılır?
+
+- **Veri gizliliği ve kontrolü:**  
+  Bir sınıfın içindeki değişkenler dışarıdan direkt erişime kapatılır.  
+  Yalnızca kontrollü bir şekilde (getter/setter) erişim sağlanır.  
+
+- **Kod güvenliği:**  
+  Doğrudan değişkenlere erişim verilmediği için, istenmeyen veri manipülasyonları engellenir.  
+
+- **Bakım kolaylığı:**  
+  API sabit kalır; arka planda istediğin değişikliği yapabilirsin.  
+
+- **Modülerlik:**  
+  Her sınıf kendi verisini ve metotlarını saklar.  
+  Böylece sistem parçaları birbirinden daha bağımsız ve daha sağlam olur.  
+
+---
+
+## Inheritance (Kalıtım) Neden Kullanılır?
+
+- **Kod tekrarını azaltmak:**  
+  Ortak özellikler bir parent class'a konur, child class'lar bunları miras alır.  
+
+- **Bakım kolaylığı:**  
+  Değişiklik gerektiğinde parent class’ta yapılır, tüm child class’lara otomatik yansır.  
+
+- **Polymorphism:**  
+  Parent referansı ile child objeleri yönetilebilir.  
+
+- **Kod organizasyonu:**  
+  Gerçek dünya ilişkilerini modele dökmek daha kolay olur.  
+
+---
+
+## Polymorphism (Çok Biçimlilik) Neden Kullanılır?
+
+- **Kod tekrarını azaltmak:**  
+  Tek bir metot yazar, farklı davranışları `override` ile yönetirsin.  
+
+- **Esneklik sağlar:**  
+  Yeni bir child class eklendiğinde mevcut kodu değiştirmek zorunda kalmazsın.  
+
+- **Ortak davranışı tek tipten yönetebilirsin:**  
+  Parent tipinde bir liste veya koleksiyon tutabilirsin.  
+
+- **Bakım kolaylığı:**  
+  Sistemi büyütürken `if-else` çöplüğüne düşmezsin.  
+
+---
+
+## Abstraction (Soyutlama) Neden Kullanılır?
+
+- **Gereksiz detayları gizlemek:**  
+  Kullanıcı “nasıl” yerine “ne”ye odaklanır.  
+
+- **Standart belirlemek:**  
+  Bir `interface` veya `abstract class` ile, “herkes şu metotları yazmalı” diye kurallar koyarsın.  
+
+- **Kolay bakım ve genişletme:**  
+  Yeni özellik eklerken mevcut sistemi bozmazsın.  
+
+- **Polymorphism ile birlikte esneklik:**  
+  Birden fazla farklı implementasyonu aynı tipten yönetebilirsin.  
+
+# Abstract Class & Abstraction
+
+### Abstract Class Ne İşe Yarar?
+
+- Ortak bir şablon sağlar; birden fazla sınıfın paylaşacağı ortak özellik ve metotları tanımlar.
+- Kendi başına nesne oluşturulamaz (new ile Abstract Class’tan obje yapılamaz).
+- Polymorphism sağlar; parent referansı ile farklı child objeleri yönetebilirsin.
+- Bazı metotları abstract olarak bırakıp, child class’ların implement etmesini zorunlu kılabilirsin.
+
+### Abstraction Nasıl Yapılır?
+
+1. Abstract Class Oluşturmak
+```java
+abstract class Animal {
+    String name;
+    abstract void makeSound(); 
+    void sleep() { System.out.println(name + " is sleeping"); }
+}
+```
+2. Child Class ile Implement Etmek
+```java
+class Dog extends Animal {
+    Dog(String name) { this.name = name; }
+    @Override
+    void makeSound() { System.out.println("Bark!"); }
+}
+
+class Cat extends Animal {
+    Cat(String name) { this.name = name; }
+    @Override
+    void makeSound() { System.out.println("Meow!"); }
+}
+```
+3. Kullanım (Polymorphism ile)
+```java
+public class Main {
+    public static void main(String[] args) {
+        Animal myDog = new Dog("Karabas");
+        Animal myCat = new Cat("Minnak");
+        myDog.makeSound(); 
+        myCat.makeSound(); 
+        myDog.sleep(); 
+    }
+}
+```
+### Özet
+
+- Abstract Class: Ortak şablon ve zorunlu metotları tanımlar; kendi başına obje oluşturulamaz.
+- Abstraction: Gereksiz detayları gizler; sadece “ne yapılmalı”yı belirtir.
+- Polymorphism ile birlikte kullanıldığında tek parent tipi üzerinden farklı child objeleri yönetebilirsin.
+
+# Overload ve Override Farkları
+
+## 1. Overload (Metot Aşırı Yükleme)
+
+- Aynı isimli metodu, **farklı parametre listeleri** ile tanımlamaktır.  
+- **Compile-time (derleme zamanı) polimorfizmi** sağlar.  
+- Dönüş tipi farklı olabilir ama tek başına dönüş tipi değiştirmek overload sayılmaz, **parametre farkı şarttır**.  
+- Aynı sınıf içinde de yapılabilir, farklı sınıflarda da (inheritance gerekmez).  
+
+---
+
+## 2. Override (Metot Ezme)
+
+- **Miras (inheritance)** ilişkisi gerekir.  
+- Alt sınıf, üst sınıftaki metodu **aynı isim, aynı parametre listesi** ile yeniden tanımlar.  
+- **Runtime (çalışma zamanı) polimorfizmi** sağlar.  
+- Dönüş tipi aynı olmak zorunda (Java’da *covariant return type* yani daha özel bir tip dönebilir).  
+- Genelde `@Override` annotation’ı kullanılır.  
+
+---
+
+## Compile-time Polymorphism (Derleme Zamanı)
+
+- Program **derlenirken** hangi metodun çağrılacağı bellidir.  
+- Karar mekanizması compile aşamasında çalışır.  
+- **Overload** buna örnektir.  
+- **Avantaj:** Hızlıdır, çünkü runtime’da ekstra karar verme yoktur.  
+
+---
+
+## Runtime Polymorphism (Çalışma Zamanı)
+
+- Hangi metodun çalışacağına **program çalışırken** karar verilir.  
+- **Kalıtım + override** sayesinde olur.  
+- **Override** buna örnektir.  
+- **Avantaj:** Esneklik sağlar.  
+- **Dezavantaj:** Compile-time’a göre biraz daha yavaştır.  
+
+---
+
+## Özet
+
+- **Overload** → Aynı sınıfta olur; metot ismi aynı ama parametre listesi farklıdır, **compile-time polimorfizmi** sağlar.  
+- **Override** → Inheritance ile olur; metot imzası tamamen aynı kalır, alt sınıf üst sınıfın metodunu yeniden yazar ve **runtime polimorfizmi** sağlar.  
