@@ -638,3 +638,47 @@ KopyalaDüzenle
 }`
 
 ```
+# Overload ve Override Farkları
+
+## 1. Overload (Metot Aşırı Yükleme)
+
+- Aynı isimli metodu, **farklı parametre listeleri** ile tanımlamaktır.  
+- **Compile-time (derleme zamanı) polimorfizmi** sağlar.  
+- Dönüş tipi farklı olabilir ama tek başına dönüş tipi değiştirmek overload sayılmaz, **parametre farkı şarttır**.  
+- Aynı sınıf içinde de yapılabilir, farklı sınıflarda da (inheritance gerekmez).  
+
+---
+
+## 2. Override (Metot Ezme)
+
+- **Miras (inheritance)** ilişkisi gerekir.  
+- Alt sınıf, üst sınıftaki metodu **aynı isim, aynı parametre listesi** ile yeniden tanımlar.  
+- **Runtime (çalışma zamanı) polimorfizmi** sağlar.  
+- Dönüş tipi aynı olmak zorunda (Java’da *covariant return type* yani daha özel bir tip dönebilir).  
+- Genelde `@Override` annotation’ı kullanılır.  
+
+---
+
+## Compile-time Polymorphism (Derleme Zamanı)
+
+- Program **derlenirken** hangi metodun çağrılacağı bellidir.  
+- Karar mekanizması compile aşamasında çalışır.  
+- **Overload** buna örnektir.  
+- **Avantaj:** Hızlıdır, çünkü runtime’da ekstra karar verme yoktur.  
+
+---
+
+## Runtime Polymorphism (Çalışma Zamanı)
+
+- Hangi metodun çalışacağına **program çalışırken** karar verilir.  
+- **Kalıtım + override** sayesinde olur.  
+- **Override** buna örnektir.  
+- **Avantaj:** Esneklik sağlar.  
+- **Dezavantaj:** Compile-time’a göre biraz daha yavaştır.  
+
+---
+
+## Özet
+
+- **Overload** → Aynı sınıfta olur; metot ismi aynı ama parametre listesi farklıdır, **compile-time polimorfizmi** sağlar.  
+- **Override** → Inheritance ile olur; metot imzası tamamen aynı kalır, alt sınıf üst sınıfın metodunu yeniden yazar ve **runtime polimorfizmi** sağlar.  
