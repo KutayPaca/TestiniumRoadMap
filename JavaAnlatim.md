@@ -708,6 +708,57 @@ Bu dokümanda OOP’nin dört temel prensibi (Encapsulation, Inheritance, Polymo
 - **Polymorphism ile birlikte esneklik:**  
   Birden fazla farklı implementasyonu aynı tipten yönetebilirsin.  
 
+# Abstract Class & Abstraction
+
+### Abstract Class Ne İşe Yarar?
+
+- Ortak bir şablon sağlar; birden fazla sınıfın paylaşacağı ortak özellik ve metotları tanımlar.
+- Kendi başına nesne oluşturulamaz (new ile Abstract Class’tan obje yapılamaz).
+- Polymorphism sağlar; parent referansı ile farklı child objeleri yönetebilirsin.
+- Bazı metotları abstract olarak bırakıp, child class’ların implement etmesini zorunlu kılabilirsin.
+
+### Abstraction Nasıl Yapılır?
+
+1. Abstract Class Oluşturmak
+```java
+abstract class Animal {
+    String name;
+    abstract void makeSound(); 
+    void sleep() { System.out.println(name + " is sleeping"); }
+}
+```
+2. Child Class ile Implement Etmek
+```java
+class Dog extends Animal {
+    Dog(String name) { this.name = name; }
+    @Override
+    void makeSound() { System.out.println("Bark!"); }
+}
+
+class Cat extends Animal {
+    Cat(String name) { this.name = name; }
+    @Override
+    void makeSound() { System.out.println("Meow!"); }
+}
+```
+3. Kullanım (Polymorphism ile)
+```java
+public class Main {
+    public static void main(String[] args) {
+        Animal myDog = new Dog("Karabas");
+        Animal myCat = new Cat("Minnak");
+        myDog.makeSound(); 
+        myCat.makeSound(); 
+        myDog.sleep(); 
+    }
+}
+```
+### Özet
+
+- Abstract Class: Ortak şablon ve zorunlu metotları tanımlar; kendi başına obje oluşturulamaz.
+- Abstraction: Gereksiz detayları gizler; sadece “ne yapılmalı”yı belirtir.
+- Polymorphism ile birlikte kullanıldığında tek parent tipi üzerinden farklı child objeleri yönetebilirsin.
+
 # Overload ve Override Farkları
 
 ## 1. Overload (Metot Aşırı Yükleme)
