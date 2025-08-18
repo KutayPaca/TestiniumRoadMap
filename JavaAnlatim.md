@@ -638,6 +638,76 @@ KopyalaDüzenle
 }`
 
 ```
+# Object Oriented Programming (OOP) Temelleri
+
+Bu dokümanda OOP’nin dört temel prensibi (Encapsulation, Inheritance, Polymorphism, Abstraction) ve bunların kullanım amaçları özetlenmiştir.
+
+---
+
+## Encapsulation (Kapsülleme) Neden Kullanılır?
+
+- **Veri gizliliği ve kontrolü:**  
+  Bir sınıfın içindeki değişkenler dışarıdan direkt erişime kapatılır.  
+  Yalnızca kontrollü bir şekilde (getter/setter) erişim sağlanır.  
+
+- **Kod güvenliği:**  
+  Doğrudan değişkenlere erişim verilmediği için, istenmeyen veri manipülasyonları engellenir.  
+
+- **Bakım kolaylığı:**  
+  API sabit kalır; arka planda istediğin değişikliği yapabilirsin.  
+
+- **Modülerlik:**  
+  Her sınıf kendi verisini ve metotlarını saklar.  
+  Böylece sistem parçaları birbirinden daha bağımsız ve daha sağlam olur.  
+
+---
+
+## Inheritance (Kalıtım) Neden Kullanılır?
+
+- **Kod tekrarını azaltmak:**  
+  Ortak özellikler bir parent class'a konur, child class'lar bunları miras alır.  
+
+- **Bakım kolaylığı:**  
+  Değişiklik gerektiğinde parent class’ta yapılır, tüm child class’lara otomatik yansır.  
+
+- **Polymorphism:**  
+  Parent referansı ile child objeleri yönetilebilir.  
+
+- **Kod organizasyonu:**  
+  Gerçek dünya ilişkilerini modele dökmek daha kolay olur.  
+
+---
+
+## Polymorphism (Çok Biçimlilik) Neden Kullanılır?
+
+- **Kod tekrarını azaltmak:**  
+  Tek bir metot yazar, farklı davranışları `override` ile yönetirsin.  
+
+- **Esneklik sağlar:**  
+  Yeni bir child class eklendiğinde mevcut kodu değiştirmek zorunda kalmazsın.  
+
+- **Ortak davranışı tek tipten yönetebilirsin:**  
+  Parent tipinde bir liste veya koleksiyon tutabilirsin.  
+
+- **Bakım kolaylığı:**  
+  Sistemi büyütürken `if-else` çöplüğüne düşmezsin.  
+
+---
+
+## Abstraction (Soyutlama) Neden Kullanılır?
+
+- **Gereksiz detayları gizlemek:**  
+  Kullanıcı “nasıl” yerine “ne”ye odaklanır.  
+
+- **Standart belirlemek:**  
+  Bir `interface` veya `abstract class` ile, “herkes şu metotları yazmalı” diye kurallar koyarsın.  
+
+- **Kolay bakım ve genişletme:**  
+  Yeni özellik eklerken mevcut sistemi bozmazsın.  
+
+- **Polymorphism ile birlikte esneklik:**  
+  Birden fazla farklı implementasyonu aynı tipten yönetebilirsin.  
+
 # Overload ve Override Farkları
 
 ## 1. Overload (Metot Aşırı Yükleme)
