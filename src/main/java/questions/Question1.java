@@ -5,10 +5,6 @@ import java.util.Scanner;
 public class Question1 {
     public static void main(String[] args) {
 
-        /*kullanıcıdan 1-7 arasında rakam alınacak ve girdiği rakama gelen haftanın
-        günü yazacağız .girdi: 2, çıktı : salı 1-7 arasında değer girmezse "hatalı girdi" diyecek.
-        bu soruyu if yapısı ile çözelim ilk sonra sonra switch yapısı ile çözelim
-         */
         Scanner scanner =  new Scanner(System.in);
         while(true){ //genel döngü
             System.out.println("Hangi döngü yapısı ile çalıştırmak istersiniz?");

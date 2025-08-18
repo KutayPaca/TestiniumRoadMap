@@ -6,11 +6,6 @@ import java.util.Scanner;
 public class Question2 {
     public static void main(String[] args) {
 
-        /*random bir int sayı tutacak yazılım, kullanıcının 3 tahmin hakkı olacak.
-         doğru bilirse bildiniz diyip bitecek. bilemezse 2 hakkınız, 1 hakkınız kaldı diye
-         tekrar girmesini istiyecek. bu soruyu for, do-while ve while yapıları ile ayrı ayrı yazmalıyız
-         */
-
         Scanner scanner = new Scanner(System.in);
         while (true) { //oyun döngüsü
 
